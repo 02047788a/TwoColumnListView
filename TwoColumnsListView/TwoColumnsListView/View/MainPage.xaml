@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:custom="clr-namespace:TwoColumnsListView;assembly=TwoColumnsListView"
+	x:Class="TwoColumnsListView.MainPage">
+	<ContentPage.Padding>
+    	<OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
+  	</ContentPage.Padding>
+	<ContentPage.Content>
+		<Grid VerticalOptions="FillAndExpand" RowSpacing="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<Label Text="Product Grid" Grid.Row="0" Grid.Column="0" HeightRequest="44"
+				XAlign="Center" YAlign="Center" TextColor="Black" BackgroundColor="Gray"
+			 	HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+			</Label>
+			<ListView x:Name="listView" Grid.Row="1" Grid.Column="0" >
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<custom:TwoColumnsViewCell>
+	    					<Grid Padding="0,0,0,0" RowSpacing="0" ColumnSpacing="0">
+	      						<Grid.RowDefinitions>
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<!-- Left Product Column Begin -->
+								<StackLayout Grid.Row="0" Grid.Column="0">
+									<!-- Product Photo -->
+									<Image Aspect="AspectFill" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+										<Image.GestureRecognizers>
+											<TapGestureRecognizer Command="{Binding ProductA.TapPhotoEvent}" CommandParameter="{Binding ProductA.ID}"/>
+										</Image.GestureRecognizers>
+									</Image>
+									<Grid>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="*" />
+											<RowDefinition Height="*" />
+										</Grid.RowDefinitions>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="*"/>
+											<ColumnDefinition Width="35"/>
+										</Grid.ColumnDefinitions>
+										<!-- Product Name -->
+										<Label x:Name="lblProductName" Font="Font, Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"
+											VerticalOptions="FillAndExpand" 
+											HorizontalOptions="FillAndExpand" 
+											Text="{Binding ProductA.Name}"/>
+										<!-- Product Price -->
+										<Label Font="Large" TextColor="Red" Grid.Row="1" Grid.Column="0"
+											VerticalOptions="FillAndExpand" 
+											HorizontalOptions="FillAndExpand"
+											Text="{Binding ProductA.Price, StringFormat='{0:C}'}"/>
+										<!-- Product Favorite -->
+										<Image Source="heart1.png" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" HorizontalOptions="Start">
+										</Image>
+									</Grid>
+								</StackLayout>
+								<!-- Left Product Column End -->
+
+								<!-- Right Product Column Begin -->
+								<StackLayout Grid.Row="0" Grid.Column="1">
+									<!-- Product Photo -->
+									<Image Aspect="AspectFill" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+										<Image.GestureRecognizers>
+											<TapGestureRecognizer Command="{Binding ProductB.TapPhotoEvent}" CommandParameter="{Binding ProductB.ID}"/>
+										</Image.GestureRecognizers>
+									</Image>
+									<Grid>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="*" />
+											<RowDefinition Height="*" />
+										</Grid.RowDefinitions>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="*"/>
+											<ColumnDefinition Width="35"/>
+										</Grid.ColumnDefinitions>
+										<!-- Product Name -->
+										<Label Font="Font, Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"
+											VerticalOptions="FillAndExpand" 
+											HorizontalOptions="FillAndExpand" 
+											Text="{Binding ProductB.Name}"/>
+										<!-- Product Price -->
+										<Label Font="Large" TextColor="Red" Grid.Row="1" Grid.Column="0"
+											VerticalOptions="FillAndExpand" 
+											HorizontalOptions="FillAndExpand"
+											Text="{Binding ProductB.Price, StringFormat='{0:C}'}"/>
+										<!-- Product Favorite -->
+										<Image Source="heart1.png" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" HorizontalOptions="Start">
+										</Image>
+									</Grid>
+								</StackLayout>
+								<!-- Right Product Column End -->
+	      					</Grid>
+	    				</custom:TwoColumnsViewCell>
+	    			</DataTemplate>
+	    		</ListView.ItemTemplate>
+			</ListView>
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>
