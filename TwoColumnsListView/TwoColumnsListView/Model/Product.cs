@@ -9,7 +9,7 @@ namespace TwoColumnsListView
 		public Product ()
 		{
 			this.TapPhotoEvent = new Command<int> (productId => {
-				System.Diagnostics.Debug.WriteLine("Touch Product Photo ID:{0}", this.ID);
+				System.Diagnostics.Debug.WriteLine("Touch Product Photo ID:{0}", productId);
 			});
 		}
 

@@ -10,8 +10,6 @@ namespace TwoColumnsListView
 		public MainPage ()
 		{
 			InitializeComponent ();
-
-
 		}
 
 		List<TwoProducts> LoadDataSource()
