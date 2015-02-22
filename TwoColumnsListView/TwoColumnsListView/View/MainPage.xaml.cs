@@ -28,7 +28,7 @@ namespace TwoColumnsListView
 			});
 
 		}
-
+			
 		List<TwoProducts> LoadDataSource()
 		{
 			List<Product> Dresses = new List<Product> ();

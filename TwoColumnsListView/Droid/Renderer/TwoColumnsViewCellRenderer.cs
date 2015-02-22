@@ -29,7 +29,7 @@ namespace TwoColumnsListView.Droid
 			var cell = base.GetCellCore (item, convertView, parent, context) as ViewGroup;
 			if (cell != null) {
 
-				var grid = cell.GetChildAt (0) as ViewGroup; // 2 columns
+				var grid = (cell.GetChildAt (0) as ViewGroup); // 2 columns
 
 				var leftColumn = grid.GetChildAt (0) as ViewGroup; // Image + Text + Text
 				var productAImage = (leftColumn.GetChildAt (0)  as ViewGroup).GetChildAt(0) as ImageView;
