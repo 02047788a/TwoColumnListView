@@ -27,6 +27,10 @@ namespace TwoColumnsListView.iOS
 				var leftColumn = grid.Subviews [0];
 				UIImageView productAImage = leftColumn.Subviews [0].Subviews [0] as UIImageView;
 				productAImage.Image = UIImage.FromFile ("download.jpg");
+				productAImage.UserInteractionEnabled = true;
+				productAImage.AddGestureRecognizer(new UITapGestureRecognizer(tap=>{
+					MessagingCenter.Send<MainPage, int> (MainPage.GetInstance(), "PtoductPhoto_Tapped", customViewCell.ProductAID);
+				}));
 				Task.Factory.StartNew<string> ((state) => {
 					return GetImageFile ("http://182.254.167.182/ProductImages/", state.ToString ());
 				}, customViewCell.ProductAPhoto).
@@ -34,11 +38,21 @@ namespace TwoColumnsListView.iOS
 					UIImageView imageview = state as UIImageView;
 					imageview.Image = UIImage.FromFile (task.Result);
 				}, productAImage, TaskScheduler.FromCurrentSynchronizationContext ());
-					
+				UIImageView favoriteAIcon = leftColumn.Subviews [1].Subviews [2].Subviews [0] as UIImageView;
+				favoriteAIcon.UserInteractionEnabled = true;
+				favoriteAIcon.AddGestureRecognizer(new UITapGestureRecognizer(tap=>{
+					MessagingCenter.Send<MainPage, int> (MainPage.GetInstance(), "FavoriteIcon_Tapped", customViewCell.ProductAID);
+				}));
+
 				if (!string.IsNullOrEmpty (customViewCell.ProductBName)) {
 					var rightColumn = grid.Subviews [1];
 					UIImageView productBImage = rightColumn.Subviews [0].Subviews [0] as UIImageView;
 					productBImage.Image = UIImage.FromFile ("download.jpg");
+					productBImage.UserInteractionEnabled = true;
+					productBImage.AddGestureRecognizer(new UITapGestureRecognizer(tap=>{
+						MessagingCenter.Send<MainPage, int> (MainPage.GetInstance(), "PtoductPhoto_Tapped", customViewCell.ProductBID);
+					}));
+
 					Task.Factory.StartNew<string> ((state) => {
 						return GetImageFile ("http://182.254.167.182/ProductImages/", state.ToString ());
 					}, customViewCell.ProductBPhoto).
@@ -47,6 +61,12 @@ namespace TwoColumnsListView.iOS
 						imageview.Image = UIImage.FromFile (task.Result);
 					}, productBImage, TaskScheduler.FromCurrentSynchronizationContext ());
 						
+					UIImageView favoriteBIcon = rightColumn.Subviews [1].Subviews [2].Subviews [0] as UIImageView;
+					favoriteBIcon.UserInteractionEnabled = true;
+					favoriteBIcon.AddGestureRecognizer(new UITapGestureRecognizer(tap=>{
+						MessagingCenter.Send<MainPage, int> (MainPage.GetInstance(), "FavoriteIcon_Tapped", customViewCell.ProductBID);
+					}));
+
 				} else {
 					UIImageView productBImage = cell.Subviews [1].Subviews [1].Subviews [0].Subviews [0] as UIImageView;
 					productBImage.Image = null;

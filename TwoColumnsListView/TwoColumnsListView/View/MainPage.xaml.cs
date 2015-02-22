@@ -2,14 +2,31 @@
 using System.Collections.Generic;
 
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace TwoColumnsListView
 {
 	public partial class MainPage : ContentPage
 	{
-		public MainPage ()
+		private static readonly MainPage instance = new MainPage();
+		public static MainPage GetInstance()
+		{
+			return instance;
+		}
+
+	 	MainPage ()
 		{
 			InitializeComponent ();
+
+			MessagingCenter.Subscribe<MainPage, int> (this, "PtoductPhoto_Tapped", (sender, productId)=>{
+				Debug.WriteLine("Product ID:{0}", productId);
+			});
+
+			MessagingCenter.Subscribe<MainPage, int> (this, "FavoriteIcon_Tapped", (sender, productId)=>{
+				Debug.WriteLine("Product ID:{0}", productId);
+
+			});
+
 		}
 
 		List<TwoProducts> LoadDataSource()

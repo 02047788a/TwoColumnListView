@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using Android.Views;
 using Android;
 
-[assembly:ExportRenderer(typeof(TwoColumnsListView.TwoColumnsViewCell), typeof(TwoColumnsListView.Android.TwoColumnsViewCellRenderer))]
-namespace TwoColumnsListView.Android
+[assembly:ExportRenderer(typeof(TwoColumnsListView.TwoColumnsViewCell), typeof(TwoColumnsListView.Droid.TwoColumnsViewCellRenderer))]
+namespace TwoColumnsListView.Droid
 {
 	public class TwoColumnsViewCellRenderer : ViewCellRenderer
 	{ 
@@ -34,6 +34,8 @@ namespace TwoColumnsListView.Android
 				var leftColumn = grid.GetChildAt (0) as ViewGroup; // Image + Text + Text
 				var productAImage = (leftColumn.GetChildAt (0)  as ViewGroup).GetChildAt(0) as ImageView;
 				productAImage.SetImageResource (TwoColumnsListView.Droid.Resource.Drawable.download);
+				productAImage.SetOnClickListener (new ProductPhotoClickListener(){ ProductID = customViewCell.ProductAID});
+
 				Task.Factory.StartNew<string> ((state) => {
 					return GetImageFile ("http://182.254.167.182/ProductImages/", state.ToString());
 				}, customViewCell.ProductAPhoto).
@@ -43,11 +45,17 @@ namespace TwoColumnsListView.Android
 						imageview.SetImageBitmap (bitmapToDisplay);
 					}
 				}, productAImage, TaskScheduler.FromCurrentSynchronizationContext ());
-					
+
+				var favoriteAIcon = ((leftColumn.GetChildAt (1) as ViewGroup).GetChildAt (2) as ViewGroup).GetChildAt (0) as ImageView;
+				favoriteAIcon.SetOnClickListener (new FavoriteIconClickListener(){ ProductID = customViewCell.ProductAID});
+
+
 				if (!string.IsNullOrEmpty (customViewCell.ProductBName)) {
 					var rightColumn = grid.GetChildAt (1) as ViewGroup; // Image + Text + Text
 					var productBImage = (rightColumn.GetChildAt (0)  as ViewGroup).GetChildAt (0) as ImageView;
 					productBImage.SetImageResource (TwoColumnsListView.Droid.Resource.Drawable.download);
+					productBImage.SetOnClickListener (new ProductPhotoClickListener(){ ProductID = customViewCell.ProductBID});
+
 					Task.Factory.StartNew<string> ((state) => {
 						return GetImageFile ("http://182.254.167.182/ProductImages/", state.ToString ());
 					}, customViewCell.ProductBPhoto).
@@ -58,6 +66,9 @@ namespace TwoColumnsListView.Android
 						}
 					}, productBImage, TaskScheduler.FromCurrentSynchronizationContext ());
 						
+					var favoriteBIcon = ((rightColumn.GetChildAt (1) as ViewGroup).GetChildAt (2) as ViewGroup).GetChildAt (0) as ImageView;
+					favoriteBIcon.SetOnClickListener (new FavoriteIconClickListener(){ ProductID = customViewCell.ProductBID});
+
 				} else {
 					var rightColumn = grid.GetChildAt (1) as ViewGroup;
 					var productPhoto = (rightColumn.GetChildAt (0)  as ViewGroup).GetChildAt (0) as ImageView;
@@ -87,6 +98,11 @@ namespace TwoColumnsListView.Android
 				Console.WriteLine ("{0} size is 0", fileName);
 
 			return filePath;
+		}
+
+		public void OnClick (global::Android.Views.View v)
+		{
+			Console.WriteLine ("Image OnClick");
 		}
 	}
 }

@@ -32,9 +32,6 @@
 								<StackLayout Grid.Row="0" Grid.Column="0">
 									<!-- Product Photo -->
 									<Image Aspect="AspectFill" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-										<Image.GestureRecognizers>
-											<TapGestureRecognizer Command="{Binding ProductA.TapPhotoEvent}" CommandParameter="{Binding ProductA.ID}"/>
-										</Image.GestureRecognizers>
 									</Image>
 									<Grid>
 										<Grid.RowDefinitions>
@@ -66,9 +63,6 @@
 								<StackLayout Grid.Row="0" Grid.Column="1">
 									<!-- Product Photo -->
 									<Image Aspect="AspectFill" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-										<Image.GestureRecognizers>
-											<TapGestureRecognizer Command="{Binding ProductB.TapPhotoEvent}" CommandParameter="{Binding ProductB.ID}"/>
-										</Image.GestureRecognizers>
 									</Image>
 									<Grid>
 										<Grid.RowDefinitions>
